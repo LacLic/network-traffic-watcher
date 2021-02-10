@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Network Traffic Watcher</title>
+    <!-- 引入 echarts.js -->
+    <script src="{% static 'js/echarts.min.js' %}"></script>
+    {% comment %} <script src="echarts.min.js"></script> {% endcomment %}
+</head>
+<body>
+    
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 1500px;height:600px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '流量监控'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: {{IPs|safe}}
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: {{times|safe}}
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name: '{{IPs.0|safe}}',
+                    type: 'line',
+                    stack: '流量',
+                    data: {{flows.0}}
+                },
+                {
+                    name: '{{IPs.1|safe}}',
+                    type: 'line',
+                    stack: '流量',
+                    data: {{flows.1}}
+                },
+                {
+                    name: '{{IPs.2|safe}}',
+                    type: 'line',
+                    stack: '流量',
+                    data: {{flows.2}}
+                },
+                {
+                    name: '{{IPs.3|safe}}',
+                    type: 'line',
+                    stack: '流量',
+                    data: {{flows.3}}
+                },
+                {
+                    name: '{{IPs.5|safe}}',
+                    type: 'line',
+                    stack: '流量',
+                    data: {{flows.5}}
+                },
+                {
+                    name: '{{IPs.6|safe}}',
+                    type: 'line',
+                    stack: '流量',
+                    data: {{flows.6}}
+                },
+                {
+                    name: '{{IPs.7|safe}}',
+                    type: 'line',
+                    stack: '流量',
+                    data: {{flows.7}}
+                },
+                {
+                    name: '{{IPs.8|safe}}',
+                    type: 'line',
+                    stack: '流量',
+                    data: {{flows.8}}
+                }
+            ]
+        };
+
+        option && myChart.setOption(option);
+    </script>
+    
+    <div class="copyright">
+    <br><br><br>
+    &copy;
+    <span class="with-love">
+        <i class="fa fa-user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">LacLic</span>
+    </div>
+    <div class="powered-by">Powered by <a href="https://docs.djangoproject.com/" class="theme-link" rel="noopener" target="_blank">Django</a> & <a href="https://echarts.apache.org/" class="theme-link" rel="noopener" target="_blank">Echart</a>
+    </div>
+</body>
+</html>
